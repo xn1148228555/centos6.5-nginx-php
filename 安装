@@ -1,0 +1,497 @@
+1.卸载系统中默认的php和httpd
+
+复制代码
+[root@x ~]# yum remove httpd* php*
+Loaded plugins: fastestmirror
+Setting up Remove Process
+No Match for argument: php*
+base                                                                                                                                      | 3.7 kB     00:00     
+base/primary_db                                                                                                                           | 3.6 MB     00:03     
+extras                                                                                                                                    | 3.4 kB     00:00     
+extras/primary_db                                                                                                                         |  30 kB     00:00     
+updates                                                                                                                                   | 3.4 kB     00:00     
+updates/primary_db                                                                                                                        | 2.5 MB     00:03     
+vz-base                                                                                                                                   |  951 B     00:00     
+vz-base/primary                                                                                                                           | 1.3 kB     00:00     
+vz-base                                                                                                                                                      3/3
+vz-updates                                                                                                                                |  951 B     00:00     
+vz-updates/primary                                                                                                                        | 2.1 kB     00:00     
+vz-updates                                                                                                                                                   8/8
+Package(s) php* available, but not installed.
+Resolving Dependencies
+--> Running transaction check
+---> Package httpd.i686 0:2.2.15-30.el6.centos will be erased
+---> Package httpd-tools.i686 0:2.2.15-30.el6.centos will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================
+ Package                               Arch                           Version                                          Repository                           Size
+=================================================================================================================================================================
+Removing:
+ httpd                                 i686                           2.2.15-30.el6.centos                             installed                           2.8 M
+ httpd-tools                           i686                           2.2.15-30.el6.centos                             installed                           128 k
+
+Transaction Summary
+=================================================================================================================================================================
+Remove        2 Package(s)
+
+Installed size: 2.9 M
+Is this ok [y/N]: y
+Downloading Packages:
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Erasing    : httpd-2.2.15-30.el6.centos.i686                                                                                                               1/2 
+warning: /etc/httpd/conf/httpd.conf saved as /etc/httpd/conf/httpd.conf.rpmsave
+  Erasing    : httpd-tools-2.2.15-30.el6.centos.i686                                                                                                         2/2 
+  Verifying  : httpd-2.2.15-30.el6.centos.i686                                                                                                               1/2 
+  Verifying  : httpd-tools-2.2.15-30.el6.centos.i686                                                                                                         2/2 
+
+Removed:
+  httpd.i686 0:2.2.15-30.el6.centos                                            httpd-tools.i686 0:2.2.15-30.el6.centos                                           
+
+Complete!
+复制代码
+2.添加安装源
+
+[root@x ~]# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+Retrieving http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+warning: /var/tmp/rpm-tmp.2QHCGj: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY
+Preparing...                ########################################### [100%]
+   1:epel-release           ########################################### [100%]
+3.安装nginx
+
+复制代码
+[root@x ~]# yum install -y nginx 
+Loaded plugins: fastestmirror
+Determining fastest mirrors
+epel/metalink                                                                                                                             |  12 kB     00:00     
+ * base: centos.sonn.com
+ * epel: linux.mirrors.es.net
+ * extras: centos.sonn.com
+ * updates: repos.lax.quadranet.com
+epel                                                                                                                                      | 4.3 kB     00:00     
+epel/primary_db                                                                                                                           | 4.9 MB     00:04     
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package nginx.i686 0:1.0.15-12.el6 will be installed
+--> Processing Dependency: nginx-filesystem = 1.0.15-12.el6 for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: nginx-filesystem for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.18) for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libxslt.so.1(LIBXML2_1.0.11) for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libxslt.so.1 for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libgd.so.2 for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libexslt.so.0 for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: libGeoIP.so.1 for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: gd for package: nginx-1.0.15-12.el6.i686
+--> Processing Dependency: GeoIP for package: nginx-1.0.15-12.el6.i686
+--> Running transaction check
+---> Package GeoIP.i686 0:1.6.5-1.el6 will be installed
+--> Processing Dependency: geoipupdate for package: GeoIP-1.6.5-1.el6.i686
+--> Processing Dependency: GeoIP-data for package: GeoIP-1.6.5-1.el6.i686
+---> Package gd.i686 0:2.0.35-11.el6 will be installed
+--> Processing Dependency: libfreetype.so.6 for package: gd-2.0.35-11.el6.i686
+--> Processing Dependency: libfontconfig.so.1 for package: gd-2.0.35-11.el6.i686
+--> Processing Dependency: libXpm.so.4 for package: gd-2.0.35-11.el6.i686
+--> Processing Dependency: libX11.so.6 for package: gd-2.0.35-11.el6.i686
+---> Package libxslt.i686 0:1.1.26-2.el6_3.1 will be installed
+---> Package nginx-filesystem.noarch 0:1.0.15-12.el6 will be installed
+--> Running transaction check
+---> Package GeoIP-GeoLite-data.noarch 0:2015.04-2.el6 will be installed
+--> Processing Dependency: GeoIP-GeoLite-data-extra = 2015.04-2.el6 for package: GeoIP-GeoLite-data-2015.04-2.el6.noarch
+---> Package fontconfig.i686 0:2.8.0-5.el6 will be installed
+---> Package freetype.i686 0:2.3.11-15.el6_6.1 will be installed
+---> Package geoipupdate.i686 0:2.2.1-2.el6 will be installed
+---> Package libX11.i686 0:1.6.0-6.el6 will be installed
+--> Processing Dependency: libX11-common = 1.6.0-6.el6 for package: libX11-1.6.0-6.el6.i686
+--> Processing Dependency: libxcb.so.1 for package: libX11-1.6.0-6.el6.i686
+---> Package libXpm.i686 0:3.5.10-2.el6 will be installed
+--> Running transaction check
+---> Package GeoIP-GeoLite-data-extra.noarch 0:2015.04-2.el6 will be installed
+---> Package libX11-common.noarch 0:1.6.0-6.el6 will be installed
+---> Package libxcb.i686 0:1.9.1-3.el6 will be installed
+--> Processing Dependency: libXau.so.6 for package: libxcb-1.9.1-3.el6.i686
+--> Running transaction check
+---> Package libXau.i686 0:1.0.6-4.el6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================
+ Package                                          Arch                           Version                                      Repository                    Size
+=================================================================================================================================================================
+Installing:
+ nginx                                            i686                           1.0.15-12.el6                                epel                         410 k
+Installing for dependencies:
+ GeoIP                                            i686                           1.6.5-1.el6                                  epel                         118 k
+ GeoIP-GeoLite-data                               noarch                         2015.04-2.el6                                epel                         343 k
+ GeoIP-GeoLite-data-extra                         noarch                         2015.04-2.el6                                epel                          23 M
+ fontconfig                                       i686                           2.8.0-5.el6                                  base                         186 k
+ freetype                                         i686                           2.3.11-15.el6_6.1                            base                         365 k
+ gd                                               i686                           2.0.35-11.el6                                base                         141 k
+ geoipupdate                                      i686                           2.2.1-2.el6                                  epel                          27 k
+ libX11                                           i686                           1.6.0-6.el6                                  base                         593 k
+ libX11-common                                    noarch                         1.6.0-6.el6                                  base                         192 k
+ libXau                                           i686                           1.0.6-4.el6                                  base                          24 k
+ libXpm                                           i686                           3.5.10-2.el6                                 base                          50 k
+ libxcb                                           i686                           1.9.1-3.el6                                  base                         115 k
+ libxslt                                          i686                           1.1.26-2.el6_3.1                             base                         451 k
+ nginx-filesystem                                 noarch                         1.0.15-12.el6                                epel                         8.1 k
+
+Transaction Summary
+=================================================================================================================================================================
+Install      15 Package(s)
+
+Total download size: 26 M
+Installed size: 56 M
+Downloading Packages:
+(1/15): GeoIP-1.6.5-1.el6.i686.rpm                                                                                                        | 118 kB     00:00     
+(2/15): GeoIP-GeoLite-data-2015.04-2.el6.noarch.rpm                                                                                       | 343 kB     00:00     
+(3/15): GeoIP-GeoLite-data-extra-2015.04-2.el6.noarch.rpm                                                                                 |  23 MB     00:20     
+(4/15): fontconfig-2.8.0-5.el6.i686.rpm                                                                                                   | 186 kB     00:00     
+(5/15): freetype-2.3.11-15.el6_6.1.i686.rpm                                                                                               | 365 kB     00:00     
+(6/15): gd-2.0.35-11.el6.i686.rpm                                                                                                         | 141 kB     00:00     
+(7/15): geoipupdate-2.2.1-2.el6.i686.rpm                                                                                                  |  27 kB     00:00     
+(8/15): libX11-1.6.0-6.el6.i686.rpm                                                                                                       | 593 kB     00:00     
+(9/15): libX11-common-1.6.0-6.el6.noarch.rpm                                                                                              | 192 kB     00:00     
+(10/15): libXau-1.0.6-4.el6.i686.rpm                                                                                                      |  24 kB     00:00     
+(11/15): libXpm-3.5.10-2.el6.i686.rpm                                                                                                     |  50 kB     00:00     
+(12/15): libxcb-1.9.1-3.el6.i686.rpm                                                                                                      | 115 kB     00:00     
+(13/15): libxslt-1.1.26-2.el6_3.1.i686.rpm                                                                                                | 451 kB     00:00     
+(14/15): nginx-1.0.15-12.el6.i686.rpm                                                                                                     | 410 kB     00:00     
+(15/15): nginx-filesystem-1.0.15-12.el6.noarch.rpm                                                                                        | 8.1 kB     00:00     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                            1.1 MB/s |  26 MB     00:22     
+warning: rpmts_HdrFromFdno: Header V3 RSA/SHA1 Signature, key ID c105b9de: NOKEY
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+Importing GPG key 0xC105B9DE:
+ Userid : CentOS-6 Key (CentOS 6 Official Signing Key) <centos-6-key@centos.org>
+ Package: centos-release-6-5.el6.centos.11.2.i686 (installed)
+ From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
+warning: rpmts_HdrFromFdno: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+Importing GPG key 0x0608B895:
+ Userid : EPEL (6) <epel@fedoraproject.org>
+ Package: epel-release-6-8.noarch (installed)
+ From   : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+Warning: RPMDB altered outside of yum.
+  Installing : GeoIP-GeoLite-data-extra-2015.04-2.el6.noarch                                                                                                1/15 
+  Installing : GeoIP-GeoLite-data-2015.04-2.el6.noarch                                                                                                      2/15 
+  Installing : libX11-common-1.6.0-6.el6.noarch                                                                                                             3/15 
+  Installing : nginx-filesystem-1.0.15-12.el6.noarch                                                                                                        4/15 
+  Installing : freetype-2.3.11-15.el6_6.1.i686                                                                                                              5/15 
+  Installing : fontconfig-2.8.0-5.el6.i686                                                                                                                  6/15 
+  Installing : geoipupdate-2.2.1-2.el6.i686                                                                                                                 7/15 
+  Installing : GeoIP-1.6.5-1.el6.i686                                                                                                                       8/15 
+  Installing : libXau-1.0.6-4.el6.i686                                                                                                                      9/15 
+  Installing : libxcb-1.9.1-3.el6.i686                                                                                                                     10/15 
+  Installing : libX11-1.6.0-6.el6.i686                                                                                                                     11/15 
+  Installing : libXpm-3.5.10-2.el6.i686                                                                                                                    12/15 
+  Installing : gd-2.0.35-11.el6.i686                                                                                                                       13/15 
+  Installing : libxslt-1.1.26-2.el6_3.1.i686                                                                                                               14/15 
+  Installing : nginx-1.0.15-12.el6.i686                                                                                                                    15/15 
+  Verifying  : libX11-1.6.0-6.el6.i686                                                                                                                      1/15 
+  Verifying  : nginx-filesystem-1.0.15-12.el6.noarch                                                                                                        2/15 
+  Verifying  : freetype-2.3.11-15.el6_6.1.i686                                                                                                              3/15 
+  Verifying  : GeoIP-GeoLite-data-2015.04-2.el6.noarch                                                                                                      4/15 
+  Verifying  : libxslt-1.1.26-2.el6_3.1.i686                                                                                                                5/15 
+  Verifying  : GeoIP-1.6.5-1.el6.i686                                                                                                                       6/15 
+  Verifying  : gd-2.0.35-11.el6.i686                                                                                                                        7/15 
+  Verifying  : libX11-common-1.6.0-6.el6.noarch                                                                                                             8/15 
+  Verifying  : libxcb-1.9.1-3.el6.i686                                                                                                                      9/15 
+  Verifying  : nginx-1.0.15-12.el6.i686                                                                                                                    10/15 
+  Verifying  : GeoIP-GeoLite-data-extra-2015.04-2.el6.noarch                                                                                               11/15 
+  Verifying  : libXpm-3.5.10-2.el6.i686                                                                                                                    12/15 
+  Verifying  : libXau-1.0.6-4.el6.i686                                                                                                                     13/15 
+  Verifying  : fontconfig-2.8.0-5.el6.i686                                                                                                                 14/15 
+  Verifying  : geoipupdate-2.2.1-2.el6.i686                                                                                                                15/15 
+
+Installed:
+  nginx.i686 0:1.0.15-12.el6                                                                                                                                     
+
+Dependency Installed:
+  GeoIP.i686 0:1.6.5-1.el6            GeoIP-GeoLite-data.noarch 0:2015.04-2.el6  GeoIP-GeoLite-data-extra.noarch 0:2015.04-2.el6  fontconfig.i686 0:2.8.0-5.el6 
+  freetype.i686 0:2.3.11-15.el6_6.1   gd.i686 0:2.0.35-11.el6                    geoipupdate.i686 0:2.2.1-2.el6                   libX11.i686 0:1.6.0-6.el6     
+  libX11-common.noarch 0:1.6.0-6.el6  libXau.i686 0:1.0.6-4.el6                  libXpm.i686 0:3.5.10-2.el6                       libxcb.i686 0:1.9.1-3.el6     
+  libxslt.i686 0:1.1.26-2.el6_3.1     nginx-filesystem.noarch 0:1.0.15-12.el6   
+
+Complete!
+复制代码
+4.设置nginx服务开机自启动
+
+[root@x ~]# chkconfig --level 345 nginx on
+5.安装php和php-fpm
+
+复制代码
+[root@x ~]# yum install -y php php-fpm
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.sonn.com
+ * epel: linux.mirrors.es.net
+ * extras: centos.sonn.com
+ * updates: repos.lax.quadranet.com
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package php.i686 0:5.3.3-46.el6_6 will be installed
+--> Processing Dependency: php-common(x86-32) = 5.3.3-46.el6_6 for package: php-5.3.3-46.el6_6.i686
+--> Processing Dependency: php-cli(x86-32) = 5.3.3-46.el6_6 for package: php-5.3.3-46.el6_6.i686
+--> Processing Dependency: httpd-mmn = 20051115 for package: php-5.3.3-46.el6_6.i686
+--> Processing Dependency: httpd for package: php-5.3.3-46.el6_6.i686
+---> Package php-fpm.i686 0:5.3.3-46.el6_6 will be installed
+--> Running transaction check
+---> Package httpd.i686 0:2.2.15-47.el6.centos will be installed
+--> Processing Dependency: httpd-tools = 2.2.15-47.el6.centos for package: httpd-2.2.15-47.el6.centos.i686
+---> Package php-cli.i686 0:5.3.3-46.el6_6 will be installed
+---> Package php-common.i686 0:5.3.3-46.el6_6 will be installed
+--> Running transaction check
+---> Package httpd-tools.i686 0:2.2.15-47.el6.centos will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================
+ Package                                Arch                            Version                                         Repository                          Size
+=================================================================================================================================================================
+Installing:
+ php                                    i686                            5.3.3-46.el6_6                                  updates                            1.1 M
+ php-fpm                                i686                            5.3.3-46.el6_6                                  updates                            1.2 M
+Installing for dependencies:
+ httpd                                  i686                            2.2.15-47.el6.centos                            updates                            829 k
+ httpd-tools                            i686                            2.2.15-47.el6.centos                            updates                             77 k
+ php-cli                                i686                            5.3.3-46.el6_6                                  updates                            2.2 M
+ php-common                             i686                            5.3.3-46.el6_6                                  updates                            530 k
+
+Transaction Summary
+=================================================================================================================================================================
+Install       6 Package(s)
+
+Total download size: 5.9 M
+Installed size: 19 M
+Downloading Packages:
+(1/6): httpd-2.2.15-47.el6.centos.i686.rpm                                                                                                | 829 kB     00:00     
+(2/6): httpd-tools-2.2.15-47.el6.centos.i686.rpm                                                                                          |  77 kB     00:00     
+(3/6): php-5.3.3-46.el6_6.i686.rpm                                                                                                        | 1.1 MB     00:01     
+(4/6): php-cli-5.3.3-46.el6_6.i686.rpm                                                                                                    | 2.2 MB     00:01     
+(5/6): php-common-5.3.3-46.el6_6.i686.rpm                                                                                                 | 530 kB     00:00     
+(6/6): php-fpm-5.3.3-46.el6_6.i686.rpm                                                                                                    | 1.2 MB     00:01     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                            975 kB/s | 5.9 MB     00:06     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : php-common-5.3.3-46.el6_6.i686                                                                                                                1/6 
+  Installing : php-cli-5.3.3-46.el6_6.i686                                                                                                                   2/6 
+  Installing : httpd-tools-2.2.15-47.el6.centos.i686                                                                                                         3/6 
+  Installing : httpd-2.2.15-47.el6.centos.i686                                                                                                               4/6 
+  Installing : php-5.3.3-46.el6_6.i686                                                                                                                       5/6 
+  Installing : php-fpm-5.3.3-46.el6_6.i686                                                                                                                   6/6 
+  Verifying  : httpd-2.2.15-47.el6.centos.i686                                                                                                               1/6 
+  Verifying  : php-fpm-5.3.3-46.el6_6.i686                                                                                                                   2/6 
+  Verifying  : php-common-5.3.3-46.el6_6.i686                                                                                                                3/6 
+  Verifying  : httpd-tools-2.2.15-47.el6.centos.i686                                                                                                         4/6 
+  Verifying  : php-5.3.3-46.el6_6.i686                                                                                                                       5/6 
+  Verifying  : php-cli-5.3.3-46.el6_6.i686                                                                                                                   6/6 
+
+Installed:
+  php.i686 0:5.3.3-46.el6_6                                                     php-fpm.i686 0:5.3.3-46.el6_6                                                    
+
+Dependency Installed:
+  httpd.i686 0:2.2.15-47.el6.centos      httpd-tools.i686 0:2.2.15-47.el6.centos      php-cli.i686 0:5.3.3-46.el6_6      php-common.i686 0:5.3.3-46.el6_6     
+
+Complete!
+复制代码
+6.设置php-fpm服务开机自启动
+
+[root@x ~]# chkconfig --level 345 php-fpm on
+7.安装php其他模块，如mysql相关模块php-mysql，xml相关模块php-xml等
+
+复制代码
+[root@x ~]# yum install -y  php-gd php-mysql php-mbstring php-xml php-mcrypt
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos.sonn.com
+ * epel: linux.mirrors.es.net
+ * extras: centos.sonn.com
+ * updates: repos.lax.quadranet.com
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package php-gd.i686 0:5.3.3-46.el6_6 will be installed
+---> Package php-mbstring.i686 0:5.3.3-46.el6_6 will be installed
+---> Package php-mcrypt.i686 0:5.3.3-4.el6 will be installed
+--> Processing Dependency: libmcrypt.so.4 for package: php-mcrypt-5.3.3-4.el6.i686
+---> Package php-mysql.i686 0:5.3.3-46.el6_6 will be installed
+--> Processing Dependency: php-pdo(x86-32) for package: php-mysql-5.3.3-46.el6_6.i686
+--> Processing Dependency: libmysqlclient.so.16(libmysqlclient_16) for package: php-mysql-5.3.3-46.el6_6.i686
+--> Processing Dependency: libmysqlclient.so.16 for package: php-mysql-5.3.3-46.el6_6.i686
+---> Package php-xml.i686 0:5.3.3-46.el6_6 will be installed
+--> Running transaction check
+---> Package libmcrypt.i686 0:2.5.8-9.el6 will be installed
+---> Package mysql-libs.i686 0:5.1.73-5.el6_6 will be installed
+---> Package php-pdo.i686 0:5.3.3-46.el6_6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=================================================================================================================================================================
+ Package                                  Arch                             Version                                     Repository                           Size
+=================================================================================================================================================================
+Installing:
+ php-gd                                   i686                             5.3.3-46.el6_6                              updates                             109 k
+ php-mbstring                             i686                             5.3.3-46.el6_6                              updates                             459 k
+ php-mcrypt                               i686                             5.3.3-4.el6                                 epel                                 18 k
+ php-mysql                                i686                             5.3.3-46.el6_6                              updates                              83 k
+ php-xml                                  i686                             5.3.3-46.el6_6                              updates                             106 k
+Installing for dependencies:
+ libmcrypt                                i686                             2.5.8-9.el6                                 epel                                 94 k
+ mysql-libs                               i686                             5.1.73-5.el6_6                              base                                1.2 M
+ php-pdo                                  i686                             5.3.3-46.el6_6                              updates                              78 k
+
+Transaction Summary
+=================================================================================================================================================================
+Install       8 Package(s)
+
+Total download size: 2.2 M
+Installed size: 7.1 M
+Downloading Packages:
+(1/8): libmcrypt-2.5.8-9.el6.i686.rpm                                                                                                     |  94 kB     00:00     
+(2/8): mysql-libs-5.1.73-5.el6_6.i686.rpm                                                                                                 | 1.2 MB     00:01     
+(3/8): php-gd-5.3.3-46.el6_6.i686.rpm                                                                                                     | 109 kB     00:00     
+(4/8): php-mbstring-5.3.3-46.el6_6.i686.rpm                                                                                               | 459 kB     00:00     
+(5/8): php-mcrypt-5.3.3-4.el6.i686.rpm                                                                                                    |  18 kB     00:00     
+(6/8): php-mysql-5.3.3-46.el6_6.i686.rpm                                                                                                  |  83 kB     00:00     
+(7/8): php-pdo-5.3.3-46.el6_6.i686.rpm                                                                                                    |  78 kB     00:00     
+(8/8): php-xml-5.3.3-46.el6_6.i686.rpm                                                                                                    | 106 kB     00:00     
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                            796 kB/s | 2.2 MB     00:02     
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : libmcrypt-2.5.8-9.el6.i686                                                                                                                    1/8 
+  Installing : mysql-libs-5.1.73-5.el6_6.i686                                                                                                                2/8 
+  Installing : php-pdo-5.3.3-46.el6_6.i686                                                                                                                   3/8 
+  Installing : php-mysql-5.3.3-46.el6_6.i686                                                                                                                 4/8 
+  Installing : php-mcrypt-5.3.3-4.el6.i686                                                                                                                   5/8 
+  Installing : php-gd-5.3.3-46.el6_6.i686                                                                                                                    6/8 
+  Installing : php-mbstring-5.3.3-46.el6_6.i686                                                                                                              7/8 
+  Installing : php-xml-5.3.3-46.el6_6.i686                                                                                                                   8/8 
+  Verifying  : php-xml-5.3.3-46.el6_6.i686                                                                                                                   1/8 
+  Verifying  : php-pdo-5.3.3-46.el6_6.i686                                                                                                                   2/8 
+  Verifying  : mysql-libs-5.1.73-5.el6_6.i686                                                                                                                3/8 
+  Verifying  : php-mysql-5.3.3-46.el6_6.i686                                                                                                                 4/8 
+  Verifying  : php-mbstring-5.3.3-46.el6_6.i686                                                                                                              5/8 
+  Verifying  : php-gd-5.3.3-46.el6_6.i686                                                                                                                    6/8 
+  Verifying  : php-mcrypt-5.3.3-4.el6.i686                                                                                                                   7/8 
+  Verifying  : libmcrypt-2.5.8-9.el6.i686                                                                                                                    8/8 
+
+Installed:
+  php-gd.i686 0:5.3.3-46.el6_6 php-mbstring.i686 0:5.3.3-46.el6_6 php-mcrypt.i686 0:5.3.3-4.el6 php-mysql.i686 0:5.3.3-46.el6_6 php-xml.i686 0:5.3.3-46.el6_6
+
+Dependency Installed:
+  libmcrypt.i686 0:2.5.8-9.el6                       mysql-libs.i686 0:5.1.73-5.el6_6                       php-pdo.i686 0:5.3.3-46.el6_6                      
+
+Complete!
+复制代码
+8.完成上面操作后就可以启动nignx和php-fpm服务了
+
+[root@x ~]# service php-fpm start 
+Starting php-fpm:                                          [  OK  ]
+[root@x ~]# service nginx start 
+Starting nginx:                                            [  OK  ]
+9.接下来我们需要详配置一下nginx服务器，如服务器主目录，用户等
+
+(1).为nginx服务器添加一个专用账号
+
+[root@x html]# useradd www
+(2).创建nginx服务主目录并设置访问权限
+
+[root@x html]# mkdir -p /home/www/domain.local/public_html
+[root@x html]# mkdir -p /home/www/domain.local/log
+[root@x html]# chown -R www.www /home/www/
+[root@x html]# chmod 755 /home/www/
+(3).添加nginx配置文件，可以复制一份 /etc/nginx/conf.d/virtual.conf ,然后用以下配置覆盖原内容
+
+复制代码
+[root@x html]# cd /etc/nginx/conf.d/
+[root@x conf.d]# cp virtual.conf  www.conf
+[root@x conf.d]# vi www.conf
+server {
+        server_name  domain.local; #这里改为你的域名，其他不动
+        root /home/www/domain.local/public_html;
+        access_log /home/www/domain.local/log/domain.local-access.log;
+        error_log /home/www/domain.local/log/domain.local-error.log;
+
+        location / {
+                index  index.html index.htm index.php;
+        }
+        location ~ \.php$ {
+                include /etc/nginx/fastcgi_params;
+                fastcgi_pass  127.0.0.1:9000;
+                fastcgi_index index.php;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+}
+复制代码
+配置完成后保存退出，并检查是否有语法错误：
+
+[root@x conf.d]# /etc/init.d/nginx configtest
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+如果你的输出信息和上面相似，则表示配置文件没有问题了。
+
+ 
+
+(4).编辑php-fpm的配置文件，将用于nginx进程的用户和组修改为刚才创建的账号，即www
+
+vi /etc/php-fpm.d/www.conf
+
+在文件中搜索 user = apache 和 group = apache ,改为
+
+user = www
+group = www
+(5).将nignx运行账号修改为www
+
+复制代码
+[root@x conf.d]# vi /etc/nginx/nginx.conf
+# For more information on configuration, see:
+#   * Official English Documentation: http://nginx.org/en/docs/
+#   * Official Russian Documentation: http://nginx.org/ru/docs/
+
+user              www; #这里修改为你创建的账号
+复制代码
+(6).重启php-fpm和nignx服务
+
+复制代码
+[root@x conf.d]# service nginx restart
+Stopping nginx:                                            [  OK  ]
+Starting nginx:                                            [  OK  ]
+[root@x conf.d]# service php-fpm restart 
+Stopping php-fpm:                                          [  OK  ]
+Starting php-fpm:                                          [  OK  ]
+复制代码
+10.配置防火墙
+
+如果防火墙不开放80端口，是无法访问的，这里需要配置一下：
+
+/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+/etc/rc.d/init.d/iptables save
+11.至此，关于nginx服务器的基本配置都已经完成了，接下来可以测试一下
+
+在/home/www/domain.local/public_html/ 目录中添加 info.php 文件，并加入如下代码：
+
+<?php
+    phpinfo();
+?>
+保存退出后，访问此页面，如果能看到如下界面，则表示配置正确。
+
